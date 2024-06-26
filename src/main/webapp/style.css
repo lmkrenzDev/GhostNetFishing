@@ -1,0 +1,281 @@
+:root {
+	--primary-color: #041e37; /* Blau */
+	--secondary-color: #f45700; /* Orange */
+	--grey: #f5f5f5; /* Hellgrau */
+	--darkgrey: #A9A9A9;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial;
+	font-size: 20px;
+	box-sizing: border-box;
+}
+
+.orangeBackground {
+	background-color: var(--secondary-color);
+}
+
+header {
+	height: 80px;
+	background-color: var(--primary-color);
+	color: white;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-left: 30px;
+	padding-right: 30px;
+	align-items: center;
+}
+
+header .Logo {
+	height: 60px;
+}
+
+header a {
+	text-decoration: none;
+	color: white;
+	font-size: x-large;
+}
+
+header a.buttonStyle {
+	color: white;
+	background-color: var(--secondary-color);
+	padding: 10px;
+	border-radius: 7px;
+	border: none;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 16px;
+	padding: 10px;
+}
+
+header nav {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+}
+
+header nav a {
+	cursor: pointer;
+}
+
+header nav input:first-of-type {
+	margin-left: 20px;
+}
+
+.headerImage {
+	height: 500px;
+	width: 100%;
+	object-fit: cover;
+}
+
+footer {
+	height: 60px;
+	background-color: var(--primary-color);
+	display: flex;
+	padding-left: 30px;
+	padding-right: 30px;
+	color: var(--grey);
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}
+
+.flexSpacer {
+	flex-grow: 1000;
+}
+
+h1, h2, h3, h4 {
+	text-align: center;
+	color: white;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.content {
+	flex: 1;
+}
+
+.flexboxRow {
+	display: flex;
+	flex-direction: row;
+}
+
+.flexboxColumn {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.wrapperSignIn, .wrapperReport {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	width: 100%
+}
+
+.signinMenu, .reportMenu {
+	background-color: var(--primary-color);
+	align-self: center;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.3);
+	margin-bottom: 30px;
+}
+
+.signinMenu label, .reportMenu label {
+	color: white;
+	font-size: smaller;
+}
+
+.reportMenu label {
+	width: 140px;
+}
+
+.signinMenu form, .reportMenu form {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+input {
+	padding: 10px;
+	border-radius: 7px;
+	border: none;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 16px;
+	outline: none;
+}
+
+input[type="text"] {
+	color: gray;
+}
+
+input[type="submit"] {
+	background-color: var(--secondary-color);
+	color: white;
+}
+
+.signinMenu .hint {
+	width: 65%;
+	text-align: center;
+}
+
+form.flexboxColumn p {
+	margin: 5px 0 5px 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.containerTable {
+	display: flex;
+	justify-content: center;
+}
+
+table {
+	font-size: 16px;
+	background-color: white;
+	margin-bottom: 20px;
+	border-collapse: collapse;
+}
+
+table thead {
+	color: white;
+	background-color: var(--primary-color);
+}
+
+table td, table th {
+	padding: 10px;
+	border: none;
+	text-align: left;
+}
+
+table tbody tr:hover {
+	background-color: #ADD8E6 !important;
+}
+
+table tbody tr:nth-child(even) {
+	background-color: var(--grey);
+}
+
+table tbody td:nth-last-of-type(-n+2) {
+	color: var(--darkgrey);
+}
+
+table tbody td:nth-last-of-type(-n+2):hover {
+	color: black;
+	cursor: pointer;
+}
+
+.ui-datatable table {
+    table-layout: auto !important;
+}
+
+span.status {
+	padding: 4px;
+	border-radius: 8px;
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
+span.Gemeldet {
+	background-color: #FB0606;
+	border: 1px solid #C00909;
+}
+
+span.Geborgen {
+	background-color: #16DC36;
+	border: 1px solid #15A61B;
+}
+
+span.Verschollen {
+	background-color: #FB8A06;
+	border: 1px solid #F45700;
+}
+
+span.Bergung {
+	background-color: #F1C320;
+	border: 1px solid #C19D1A;
+}
+
+.wrapperReport .grid {
+	display: grid;
+	grid-template-columns: 140px 300px;
+	grid-gap: 10px;
+}
+
+.wrapperReport .grid input {
+	width: 100%;
+}
+
+.reportMenu .flexboxColumn{
+	align-items:inherit !important;
+	gap: 5px;
+}
+
+.wrapperReport .grid input[type="submit"] {
+	width: 160px;
+	cursor: pointer;
+	justify-self: end;
+}
+
+.wrapperReport .grid label:not(:first-of-type) {
+	padding-top: 10px;
+}
+
+.wrapperReport .grid span:not(.error) {
+	color: white;
+}
+
+.error {
+	color: var(--secondary-color);
+	font-size: smaller;
+}

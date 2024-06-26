@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<title>Ghost Net Fishing</title>
+	<link rel="icon" type="image/png" href="favicon-16x16.png" />
+</h:head>
+
+<h:body class="orangeBackground">
+
+	<div class="wrapper">
+
+		<ui:insert name="header">
+			<ui:include src="header.xhtml" />
+		</ui:insert>
+
+		<div class="content">
+			<img class="headerImage" src="headerImage.jpg" alt="Image" />
+
+			<h1>Ghost Net Fishing</h1>
+
+			<h3>Die Plattform für die Verwaltung von Geisternetzen</h3>
+
+			<div class="containerTable">
+				<h:form>
+					<p:contextMenu for="ghostnetsDataTable" widgetVar="contextMenu" id="contextMenu">
+						<p:menuitem value="Bergen"
+							action="#{dtContextMenuView.setGhostNetStatus('Bergung bevorstehend')}"
+							update="ghostnetsDataTable"
+							rendered="#{dtContextMenuView.selectedGhostNet.status eq 'Gemeldet'}" />
+						<p:menuitem value="Geborgen melden"
+							action="#{dtContextMenuView.setGhostNetStatus('Geborgen')}"
+							update="ghostnetsDataTable"
+							rendered="#{dtContextMenuView.selectedGhostNet.status eq 'Bergung bevorstehend'}" />
+						<p:menuitem value="Verschollen melden"
+							action="#{dtContextMenuView.setGhostNetStatus('Verschollen')}"
+							update="ghostnetsDataTable"
+							rendered="#{dtContextMenuView.selectedGhostNet.status eq 'Gemeldet' || dtContextMenuView.selectedGhostNet.status eq 'Bergung bevorstehend'}" />
+					</p:contextMenu>
+					
+					<p:dataTable id="ghostnetsDataTable"
+						value="#{dtContextMenuView.ghostnets}" var="ghostnet"
+						rowKey="#{ghostnet.nr}"
+						selection="#{dtContextMenuView.selectedGhostNet}"
+						selectionMode="single">
+						<p:ajax event="rowSelect" update="contextMenu" oncomplete="PF('contextMenu').show()" />
+						<p:column>
+							<f:facet name="header">ID</f:facet>
+							<h:outputText value="#{ghostnet.nr}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">Längengrad</f:facet>
+							<h:outputText value="#{ghostnet.longitude}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">Breitengrad</f:facet>
+							<h:outputText value="#{ghostnet.latitude}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">geschätzte Größe [m²]</f:facet>
+							<h:outputText value="#{ghostnet.estimatedSize}" />
+						</p:column>
+						<p:column styleClass="statusColumn">
+							<f:facet name="header">Status</f:facet>
+							<h:outputText value="#{ghostnet.status}"
+								styleClass="#{ghostnet.status} status" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">Zeitpunkt Erfassung</f:facet>
+							<h:outputText value="#{ghostnet.recordingDate}">
+								<f:convertDateTime type="date" dateStyle="medium" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">Bergende Person</f:facet>
+						</p:column>
+						<p:column>
+							<f:facet name="header"></f:facet>
+							<i class="fa-solid fa-earth-americas"></i>
+						</p:column>
+					</p:dataTable>
+
+
+
+					<p:commandButton value="Zeige Status"
+						actionListener="#{dtContextMenuView.showSelectedStatus}"
+						update="statusOutput" />
+						
+					<h:outputText id="statusOutput"
+						value="#{dtContextMenuView.selectedGhostNet.status}" />
+
+				</h:form>
+			</div>
+
+		</div>
+
+		<ui:insert name="footer">
+			<ui:include src="footer.xhtml" />
+		</ui:insert>
+	</div>
+
+</h:body>
+
+</html>
