@@ -7,7 +7,7 @@ import jakarta.inject.Named;
 
 @Named
 @ViewScoped
-public class reportController implements Serializable {
+public class ReportController implements Serializable {
 
 	private int nr;
 

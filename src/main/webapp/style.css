@@ -162,6 +162,8 @@ input[type="text"] {
 input[type="submit"] {
 	background-color: var(--secondary-color);
 	color: white;
+	margin-top: 10px;
+	cursor:pointer;
 }
 
 .signinMenu .hint {
@@ -216,7 +218,7 @@ table tbody td:nth-last-of-type(-n+2):hover {
 }
 
 .ui-datatable table {
-    table-layout: auto !important;
+	table-layout: auto !important;
 }
 
 span.status {
@@ -256,8 +258,8 @@ span.Bergung {
 	width: 100%;
 }
 
-.reportMenu .flexboxColumn{
-	align-items:inherit !important;
+.reportMenu .flexboxColumn {
+	align-items: inherit !important;
 	gap: 5px;
 }
 
@@ -278,4 +280,9 @@ span.Bergung {
 .error {
 	color: var(--secondary-color);
 	font-size: smaller;
+}
+
+#map {
+	width: 600px;
+	height: 400px;
 }

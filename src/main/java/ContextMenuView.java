@@ -1,9 +1,9 @@
 import java.io.Serializable;
 import java.util.List;
 
+import org.primefaces.PrimeFaces;
+
 import jakarta.annotation.PostConstruct;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -42,20 +42,21 @@ public class ContextMenuView implements Serializable {
 	}
 
 	public void setGhostNetStatus(String status) {
-		selectedGhostNet.setStatus(status);
-	}
-
-	public boolean renderMenuItem(String statusTransition) {
-		System.out.println("Test1");
-		if(selectedGhostNet!= null) {
-			System.out.println("Test2");
-			if(statusTransition == "Bergen" && selectedGhostNet.getStatus() == "Gemeldet") {
-				System.out.println("Test3");
-				return true;
-			}
+		if(selectedGhostNet.getStatus().equals("Gemeldet") && status.equals("Bergung bevorstehend")) {
+			selectedGhostNet.setStatus(status);			
 		}
-		
-		return false;
+		else if(selectedGhostNet.getStatus().equals("Bergung bevorstehend") && status.equals("Geborgen")) {
+			selectedGhostNet.setStatus(status);	
+		}
+		else if(selectedGhostNet.getStatus().equals("Bergung bevorstehend") && status.equals("Verschollen")) {
+			selectedGhostNet.setStatus(status);	
+		}
+		else if(selectedGhostNet.getStatus().equals("Gemeldet") && status.equals("Verschollen")) {
+			selectedGhostNet.setStatus(status);	
+		}
+		else{
+			PrimeFaces.current().executeScript("PF('ErrorDialogStatus').show();");
+		}
 	}
 
 }

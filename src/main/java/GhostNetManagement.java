@@ -10,6 +10,8 @@ import jakarta.inject.Named;
 public class GhostNetManagement {
 
 	private final List<Ghostnet> ghostnets = new ArrayList<Ghostnet>();
+		
+	private List<User> users = new ArrayList<>();
 
 	public GhostNetManagement() {
 		Ghostnet ghostNet1 = new Ghostnet(1, 53.387088, 4.693777, 100, "Gemeldet",
@@ -40,4 +42,18 @@ public class GhostNetManagement {
 	public int getcurrentSize() {
 		return ghostnets.size();
 	}
+	
+	public List<User> getUsers() {
+        return users;
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+    }
+    
+    public int getUserCount() {
+        return users.size();
+    }
+	
+    
 }

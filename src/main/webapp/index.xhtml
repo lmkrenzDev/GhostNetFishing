@@ -29,27 +29,13 @@
 
 			<div class="containerTable">
 				<h:form>
-					<p:contextMenu for="ghostnetsDataTable" widgetVar="contextMenu" id="contextMenu">
-						<p:menuitem value="Bergen"
-							action="#{dtContextMenuView.setGhostNetStatus('Bergung bevorstehend')}"
-							update="ghostnetsDataTable"
-							rendered="#{dtContextMenuView.selectedGhostNet.status eq 'Gemeldet'}" />
-						<p:menuitem value="Geborgen melden"
-							action="#{dtContextMenuView.setGhostNetStatus('Geborgen')}"
-							update="ghostnetsDataTable"
-							rendered="#{dtContextMenuView.selectedGhostNet.status eq 'Bergung bevorstehend'}" />
-						<p:menuitem value="Verschollen melden"
-							action="#{dtContextMenuView.setGhostNetStatus('Verschollen')}"
-							update="ghostnetsDataTable"
-							rendered="#{dtContextMenuView.selectedGhostNet.status eq 'Gemeldet' || dtContextMenuView.selectedGhostNet.status eq 'Bergung bevorstehend'}" />
-					</p:contextMenu>
-					
+
 					<p:dataTable id="ghostnetsDataTable"
 						value="#{dtContextMenuView.ghostnets}" var="ghostnet"
 						rowKey="#{ghostnet.nr}"
 						selection="#{dtContextMenuView.selectedGhostNet}"
 						selectionMode="single">
-						<p:ajax event="rowSelect" update="contextMenu" oncomplete="PF('contextMenu').show()" />
+
 						<p:column>
 							<f:facet name="header">ID</f:facet>
 							<h:outputText value="#{ghostnet.nr}" />
@@ -87,16 +73,34 @@
 						</p:column>
 					</p:dataTable>
 
+					<p:contextMenu for="ghostnetsDataTable" widgetVar="contextMenu"
+						id="contextMenu">
+						<p:menuitem value="Bergen"
+							actionListener="#{dtContextMenuView.setGhostNetStatus('Bergung bevorstehend')}"
+							update="ghostnetsDataTable" />
+						<p:menuitem value="Geborgen melden"
+							actionListener="#{dtContextMenuView.setGhostNetStatus('Geborgen')}"
+							update="ghostnetsDataTable" />
+						<p:menuitem value="Verschollen melden"
+							actionListener="#{dtContextMenuView.setGhostNetStatus('Verschollen')}"
+							update="ghostnetsDataTable" />
+					</p:contextMenu>
 
-
-					<p:commandButton value="Zeige Status"
-						actionListener="#{dtContextMenuView.showSelectedStatus}"
-						update="statusOutput" />
-						
-					<h:outputText id="statusOutput"
-						value="#{dtContextMenuView.selectedGhostNet.status}" />
+					<h:outputText value="#{ghostNetManagement.userCount}"/>
 
 				</h:form>
+
+				<p:dialog header="Fehlermeldung" widgetVar="ErrorDialogStatus"
+					minHeight="40" width="300" showEffect="fade" modal="true"
+					closeOnEscape="true">
+					<p class="m-0">Die Statusänderung ist nicht möglich. Wählen Sie
+						bitte einen anderen Status aus.</p>
+				</p:dialog>
+
+				<p:dialog header="Karte anzeigen" widgetVar="mapDialog" modal="true"
+					closable="true" resizable="false" width="650">
+					<div id="map"></div>
+				</p:dialog>
 			</div>
 
 		</div>

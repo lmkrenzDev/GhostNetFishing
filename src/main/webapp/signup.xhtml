@@ -31,33 +31,36 @@
 
 					<h:form class="flexboxColumn">
 						<p>
-							<h:outputLabel value="E-Mail:" for="user" />
-							<h:inputText id="user" value="#{loginController.user}" size="40"
-								required="true">
-								<f:event type="postValidate"
-									listener="#{loginController.postValidateUser}" />
+							<h:outputLabel value="Benutzername:" for="user" />
+							<h:inputText id="user" value="#{registrationController.username}"
+								size="40" required="true">
 							</h:inputText>
 							<h:message for="user" styleClass="error" />
-
 						</p>
 
 						<p>
 							<h:outputLabel value="Passwort:" for="user" />
-							<h:inputSecret id="password" value="#{loginController.password}"
-								size="40" required="true"
-								validator="#{loginController.validateLogin}" />
+							<h:inputSecret id="password"
+								value="#{registrationController.password}" size="40"
+								required="true" />
 							<h:message for="password" styleClass="error" />
-
 						</p>
 
-						<p class="error">
-							<h:outputText value="#{loginController.failureMessage}" />
-						</p>
-
-						<h:commandButton action="#{loginController.login}"
-							value="Registrieren" />
+						<h:commandButton action="#{registrationController.register}"
+							value="Registrieren" >
+							<p:ajax oncomplete="PF('successDialog').show()" update=":messages" />
+						</h:commandButton>
 
 					</h:form>
+
+					<h:messages id="messages" globalOnly="true" />
+
+					<p:dialog header="Erfolgreich registiert" widgetVar="successDialog" modal="true"
+						showEffect="fade" hideEffect="fade" resizable="false"
+						closable="false">
+						<p:commandButton value="OK"
+							onclick="PF('successDialog').hide(); window.location.href='index.xhtml';" />
+					</p:dialog>
 
 					<label class="hint">Durch Klicken auf Registrieren
 						akzeptieren Sie die AGB’s.</label>
