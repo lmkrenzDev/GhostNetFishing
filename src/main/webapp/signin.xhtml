@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-		<link rel="icon" type="image/png" href="favicon-16x16.png" />
+	<link rel="icon" type="image/png" href="favicon-16x16.png" />
 	<title>Login</title>
 </h:head>
 
@@ -25,36 +25,33 @@
 			<div class="wrapperSignIn">
 				<div class="signinMenu flexboxColumn">
 					<h3>Login</h3>
-					<label>Bitte geben Sie Ihre E-Mail-Adresse  und ein Passwort ein</label>
+					<label>Bitte geben Sie Ihre E-Mail-Adresse und ein Passwort
+						ein</label>
 
 					<h:form class="flexboxColumn">
 						<p>
-							<h:outputLabel value="E-Mail:" for="user"/>
-							<h:inputText id="user" value="#{loginController.user}" size="40"
-								required="true">
-								<f:event type="postValidate"
-									listener="#{loginController.postValidateUser}" />
+							<h:outputLabel value="E-Mail:" for="user" />
+							<h:inputText id="user" value="#{loginController.username}" size="40"
+								required="true" validator="#{loginController.validateUsername}">
+								<f:event type="postValidate" listener="#{loginController.postValidateUser}"/>
 							</h:inputText>
 							<h:message for="user" styleClass="error" />
-
 						</p>
 
 						<p>
-							<h:outputLabel value="Passwort:" for="password"/>
+							<h:outputLabel value="Passwort:" for="password" />
 							<h:inputSecret id="password" value="#{loginController.password}"
-								size="40" required="true"
-								validator="#{loginController.validateLogin}" />
+								size="40" required="true" validator="#{loginController.validateLogin}"/>
 							<h:message for="password" styleClass="error" />
-
 						</p>
 
-						<p class="error">
-							<h:outputText value="#{loginController.failureMessage}" />
-						</p>
+						<h:commandButton value="Login" action="#{loginController.login}">
+						</h:commandButton>
 
-						<h:commandButton action="#{loginController.login}" value="Anmelden" />
-
+						<h:messages id="messages" globalOnly="true" />
 					</h:form>
+
+
 				</div>
 
 			</div>

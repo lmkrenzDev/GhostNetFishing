@@ -4,14 +4,15 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+import org.primefaces.expression.impl.ThisExpressionResolver;
+
 public class User {
     private String username;
     private String passwordHash;
     private String salt;
 
-    // Standard-Konstruktoren, Getter und Setter
 
-    public User() {
+	public User() {
     }
 
     public User(String username, String password) {
@@ -36,6 +37,14 @@ public class User {
         this.passwordHash = hashPassword(this.username, password, this.salt);
     }
     
+    public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+    
     public static String generateSalt() {
         try {
             SecureRandom sr = SecureRandom.getInstanceStrong();
@@ -57,4 +66,11 @@ public class User {
             throw new RuntimeException(e);
         }
     }
+    
+   
+    
+    
+    
+    
+    
 }

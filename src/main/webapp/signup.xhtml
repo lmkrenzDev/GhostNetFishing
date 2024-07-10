@@ -25,13 +25,13 @@
 			<div class="wrapperSignIn">
 				<div class="signinMenu flexboxColumn">
 					<h3>Erstelle einen Account</h3>
-					<label>Bitte geben Sie Ihre E-Mail-Adresse und <br />ein
+					<label>Bitte geben Sie Ihre E-Mail und <br />ein
 						Passwort ein, um einen Account zu erstellen
 					</label>
 
 					<h:form class="flexboxColumn">
 						<p>
-							<h:outputLabel value="Benutzername:" for="user" />
+							<h:outputLabel value="E-Mail:" for="user" />
 							<h:inputText id="user" value="#{registrationController.username}"
 								size="40" required="true">
 							</h:inputText>
@@ -47,20 +47,29 @@
 						</p>
 
 						<h:commandButton action="#{registrationController.register}"
-							value="Registrieren" >
-							<p:ajax oncomplete="PF('successDialog').show()" update=":messages" />
+							value="Registrieren">
+							<f:ajax execute="@form" render=":messages"
+								onevent="handleRegistration" />
 						</h:commandButton>
 
+						<h:messages id="messages" globalOnly="true" />
+
+						<p:dialog header="Erfolgreich registiert"
+							widgetVar="successDialog" modal="true" showEffect="fade"
+							hideEffect="fade" resizable="false" closable="false">
+							<p:commandButton value="OK"
+								onclick="PF('successDialog').hide(); window.location.href='index.xhtml';" />
+						</p:dialog>
 					</h:form>
 
-					<h:messages id="messages" globalOnly="true" />
+					<h:outputScript>
+				        function handleRegistration(data) {
+				            if (data.status === 'success') {
+				                PF('successDialog').show();
+				            }
+				        }
+				    </h:outputScript>
 
-					<p:dialog header="Erfolgreich registiert" widgetVar="successDialog" modal="true"
-						showEffect="fade" hideEffect="fade" resizable="false"
-						closable="false">
-						<p:commandButton value="OK"
-							onclick="PF('successDialog').hide(); window.location.href='index.xhtml';" />
-					</p:dialog>
 
 					<label class="hint">Durch Klicken auf Registrieren
 						akzeptieren Sie die AGB’s.</label>

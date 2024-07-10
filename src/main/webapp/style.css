@@ -51,7 +51,7 @@ header a.buttonStyle {
 	padding: 10px;
 }
 
-header nav {
+header nav form {
 	display: flex;
 	flex-direction: row;
 	gap: 10px;
@@ -70,6 +70,10 @@ header nav input:first-of-type {
 	height: 500px;
 	width: 100%;
 	object-fit: cover;
+}
+
+.smallSpacer{
+	width:30px;
 }
 
 footer {
@@ -162,8 +166,11 @@ input[type="text"] {
 input[type="submit"] {
 	background-color: var(--secondary-color);
 	color: white;
-	margin-top: 10px;
 	cursor:pointer;
+}
+
+.wrapperSignIn input[type="submit"]{
+	margin-top: 10px;
 }
 
 .signinMenu .hint {

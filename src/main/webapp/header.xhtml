@@ -11,10 +11,19 @@
 		<header> 
 			<img class="Logo" src="Logo.png" alt="Image" /> 
 			<nav>
-				<h:link value="Start" outcome="index.xhtml" />
-				<h:link value="Report" outcome="report.xhtml" />
-				<h:link class="buttonStyle" value="Sign Up" outcome="signup.xhtml" />
-				<h:link class="buttonStyle" value="Sign In" outcome="signin.xhtml" />
+				<h:form>
+					<h:link value="Start" outcome="index.xhtml" />
+					<h:link value="Report" outcome="report.xhtml" />
+					<div class="smallSpacer"></div>
+					<h:link class="buttonStyle" value="Sign Up" outcome="signup.xhtml" rendered="#{loginController.loggedInUser == null}"/>
+					<h:link class="buttonStyle" value="Sign In" outcome="signin.xhtml" rendered="#{loginController.loggedInUser == null}"/>
+					
+					
+					<h:outputText value="Eingeloggt als: " rendered="#{loginController.loggedInUser != null}" />
+		            <h:outputText value="#{loginController.loggedInUser.username}" rendered="#{loginController.loggedInUser != null}" />
+		            
+					<h:commandButton value="Logout" rendered="#{loginController.loggedInUser != null}" class="buttonStyle" action="#{loginController.logout}" />
+				</h:form>
 			</nav> 
 		</header>
 	</ui:composition>
