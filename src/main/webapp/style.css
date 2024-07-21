@@ -39,12 +39,12 @@ header a {
 	font-size: x-large;
 }
 
-table a{
+table a {
 	color: rgb(169, 169, 169) !important;
 	text-decoration: none !important;
 }
 
-table a:hover{
+table a:hover {
 	color: black !important;
 }
 
@@ -81,8 +81,8 @@ header nav input:first-of-type {
 	object-fit: cover;
 }
 
-.smallSpacer{
-	width:30px;
+.smallSpacer {
+	width: 30px;
 }
 
 footer {
@@ -176,10 +176,10 @@ input[type="text"] {
 input[type="submit"] {
 	background-color: var(--secondary-color);
 	color: white;
-	cursor:pointer;
+	cursor: pointer;
 }
 
-.wrapperSignIn input[type="submit"]{
+.wrapperSignIn input[type="submit"] {
 	margin-top: 10px;
 }
 
@@ -225,11 +225,11 @@ table tbody tr:nth-child(even) {
 	background-color: var(--grey);
 }
 
-table tbody td:nth-last-of-type(-n+2) {
+table:not(.tablePopup) tbody td:nth-last-of-type(-n+2) {
 	color: var(--darkgrey);
 }
 
-table tbody td:nth-last-of-type(-n+2):hover {
+table:not(.tablePopup) tbody td:nth-last-of-type(-n+2):hover {
 	color: black;
 	cursor: pointer;
 }
@@ -302,4 +302,9 @@ span.Bergung {
 #map {
 	width: 600px;
 	height: 400px;
+}
+
+.tablePopup {
+	width: 100%;
+	color: black;
 }

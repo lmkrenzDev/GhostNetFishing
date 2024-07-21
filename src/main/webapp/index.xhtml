@@ -28,7 +28,7 @@
 			<h3>Die Plattform für die Verwaltung von Geisternetzen</h3>
 
 			<div class="containerTable">
-				<h:form>
+				<h:form id="form">
 
 					<p:dataTable id="ghostnetsDataTable"
 						value="#{dtContextMenuView.ghostnets}" var="ghostnet"
@@ -66,17 +66,22 @@
 						</p:column>
 						<p:column rendered="#{loginController.loggedInUser != null}">
 							<f:facet name="header">Bergende Person</f:facet>
-							<p:commandLink value="#{ghostnet.savingPerson.surname} #{ghostnet.savingPerson.name}"
-								oncomplete="PF('userDialog').show();"
-								actionListener="#{dtContextMenuView.onPersonNameClick(ghostnet.savingPerson)}" />
+							<p:commandLink update=":form:userDetail"
+								oncomplete="PF('userDialog').show()"
+								value="#{ghostnet.savingPerson.surname} #{ghostnet.savingPerson.name}">
+								<f:setPropertyActionListener value="#{ghostnet}"
+									target="#{dtContextMenuView.selectedGhostNet}" />
+							</p:commandLink>
 						</p:column>
 						<p:column>
 							<f:facet name="header"></f:facet>
 							<i class="fa-solid fa-earth-americas"></i>
 						</p:column>
+
 					</p:dataTable>
 
-					<p:contextMenu for="ghostnetsDataTable" widgetVar="contextMenu" rendered="#{loginController.loggedInUser != null}"
+					<p:contextMenu for="ghostnetsDataTable" widgetVar="contextMenu"
+						rendered="#{loginController.loggedInUser != null}"
 						id="contextMenu">
 						<p:menuitem value="Bergen"
 							actionListener="#{dtContextMenuView.setGhostNetStatus('Bergung bevorstehend')}"
@@ -89,9 +94,32 @@
 							update="ghostnetsDataTable" />
 					</p:contextMenu>
 
-					<h:outputText value="#{ghostNetManagement.userCount}" />
+					<h:outputText value="#{dtContextMenuView.selectedGhostNet.status}" />
+
+					<p:dialog header="Benutzerdetails" widgetVar="userDialog"
+						modal="true" closable="true" resizable="false" width="400">
+						<h:panelGrid id="userDetail" columns="2" cellpadding="5" styleClass="tablePopup">
+							<h:outputLabel value="E-Mail:" />
+							<h:outputText
+								value="#{dtContextMenuView.selectedGhostNet.savingPerson.username}" />
+
+							<h:outputLabel value="Vorname:" />
+							<h:outputText
+								value="#{dtContextMenuView.selectedGhostNet.savingPerson.surname}" />
+
+							<h:outputLabel value="Nachname:" />
+							<h:outputText
+								value="#{dtContextMenuView.selectedGhostNet.savingPerson.name}" />
+
+							<h:outputLabel value="Telefonnummer:" />
+							<h:outputText
+								value="#{dtContextMenuView.selectedGhostNet.savingPerson.phoneNumber}" />
+
+						</h:panelGrid>
+
+					</p:dialog>
 				</h:form>
-				
+
 
 				<p:dialog header="Fehlermeldung" widgetVar="ErrorDialogStatus"
 					minHeight="40" width="300" showEffect="fade" modal="true"
@@ -104,24 +132,7 @@
 					closable="true" resizable="false" width="650">
 					<div id="map"></div>
 				</p:dialog>
-				
-				<p:dialog header="Benutzerdetails" widgetVar="userDialog" modal="true" closable="true" resizable="false" width="400">
-						<h:panelGrid columns="2" cellpadding="5">
-							<h:outputLabel value="E-Mail:" />
-							<h:outputText value="#{dtContextMenuView.selectedGhostNet.savingPerson.username}" />
-							
-							<h:outputLabel value="Vorname:" />
-							<h:outputText value="#{dtContextMenuView.selectedGhostNet.savingPerson.firstName}" />
-							
-							<h:outputLabel value="Nachname:" />
-							<h:outputText value="#{dtContextMenuView.selectedGhostNet.savingPerson.lastName}" />
-							
-							<h:outputLabel value="Telefonnummer:" />
-							<h:outputText value="#{dtContextMenuView.selectedGhostNet.savingPerson.phoneNumber}" />
-							
-						</h:panelGrid>
-						
-					</p:dialog>
+
 			</div>
 
 		</div>

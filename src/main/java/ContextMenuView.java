@@ -16,9 +16,6 @@ public class ContextMenuView implements Serializable {
 
 	private Ghostnet selectedGhostNet;
 	
-	private User selectedPerson;
-
-
 	@Inject
 	private GhostNetManagement ghostNetManagement;
 	
@@ -47,14 +44,6 @@ public class ContextMenuView implements Serializable {
 		this.selectedGhostNet = selectedGhostNet;
 	}
 	
-	public User getSelectedPerson() {
-		return selectedPerson;
-	}
-
-	public void setSelectedPerson(User selectedPerson) {
-		this.selectedPerson = selectedPerson;
-	}
-
 	public void setGhostNetStatus(String status) {
 		if(selectedGhostNet.getStatus().equals("Gemeldet") && status.equals("Bergung bevorstehend")) {
 			selectedGhostNet.setStatus(status);		
@@ -74,9 +63,4 @@ public class ContextMenuView implements Serializable {
 		}
 	}
 	
-    public void onPersonNameClick(User person) {
-    	System.out.println(person.getName());
-        this.selectedPerson = person;
-    }
-
 }
