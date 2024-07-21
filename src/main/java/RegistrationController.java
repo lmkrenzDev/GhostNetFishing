@@ -11,25 +11,25 @@ import jakarta.inject.Named;
 public class RegistrationController implements Serializable {
 	private String username;
 	private String password;
+	private String surname;
+	private String name;
+	private String phoneNumber;
 
 	@Inject
 	private GhostNetManagement ghostNetManagement;
 
-	public void register() {
+	public String signup() {
+
 		FacesContext context = FacesContext.getCurrentInstance();
 
-        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Benutzername und Passwort dürfen nicht leer sein."));
-            context.validationFailed();
-            context.getPartialViewContext().getRenderIds().add("messages");
-            return;
-        }
+		User user = new User(username, password, surname, name, phoneNumber);
+		ghostNetManagement.addUser(user);
 
-        User user = new User(username, password);
-        ghostNetManagement.addUser(user);
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Registrierung erfolgreich."));
+		context.getPartialViewContext().getRenderIds().add("messages");
 
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Registrierung erfolgreich."));
-        context.getPartialViewContext().getRenderIds().add("messages");
+		return "index.xhtml";
+
 	}
 
 	// Getter und Setter für username und password
@@ -48,5 +48,29 @@ public class RegistrationController implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 }

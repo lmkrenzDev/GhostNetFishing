@@ -10,6 +10,9 @@ public class Ghostnet {
 	private String status;
 	private Date recordingDate;
 	private Date lastUpDate;
+	private User savingPerson;
+
+
 
 	public Ghostnet(int nr, double longitude, double latitude, double estimatedSize, String status, Date recordingDate,
 			Date lastUpate) {
@@ -76,6 +79,14 @@ public class Ghostnet {
 
 	public void setLastUpDate(Date lastUpDate) {
 		this.lastUpDate = lastUpDate;
+	}
+	
+	public User getSavingPerson() {
+		return savingPerson;
+	}
+
+	public void setSavingPerson(User savingPerson) {
+		this.savingPerson = savingPerson;
 	}
 
 }

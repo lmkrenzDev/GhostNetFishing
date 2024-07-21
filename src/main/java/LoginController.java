@@ -49,7 +49,6 @@ public class LoginController implements Serializable {
 		}
 	}
 
-
 	public String logout() {
 		loggedInUser = null;
 		currentUser = null;

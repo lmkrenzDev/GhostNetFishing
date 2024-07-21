@@ -25,8 +25,8 @@
 			<div class="wrapperSignIn">
 				<div class="signinMenu flexboxColumn">
 					<h3>Erstelle einen Account</h3>
-					<label>Bitte geben Sie Ihre E-Mail und <br />ein
-						Passwort ein, um einen Account zu erstellen
+					<label>Bitte geben Sie Ihre E-Mail und <br />ein Passwort
+						ein, um einen Account zu erstellen
 					</label>
 
 					<h:form class="flexboxColumn">
@@ -34,8 +34,39 @@
 							<h:outputLabel value="E-Mail:" for="user" />
 							<h:inputText id="user" value="#{registrationController.username}"
 								size="40" required="true">
+								<f:validateRegex
+									pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
 							</h:inputText>
 							<h:message for="user" styleClass="error" />
+						</p>
+
+						<div class="flexboxRow">
+							<p style="margin-right: 10px">
+								<h:outputLabel value="Vorname:" for="surname" />
+								<h:inputText id="surname"
+									value="#{registrationController.surname}" size="17"
+									required="true">
+								</h:inputText>
+								<h:message for="surname" styleClass="error" />
+							</p>
+
+							<p>
+								<h:outputLabel value="Nachname" for="name" />
+								<h:inputText id="name" value="#{registrationController.name}"
+									size="17" required="true">
+								</h:inputText>
+								<h:message for="name" styleClass="error" />
+							</p>
+
+						</div>
+
+						<p>
+							<h:outputLabel value="Telefonnummer:" for="phonenumber" />
+							<h:inputText id="phonenumber"
+								value="#{registrationController.phoneNumber}" size="40"
+								required="true">
+							</h:inputText>
+							<h:message for="phonenumber" styleClass="error" />
 						</p>
 
 						<p>
@@ -46,13 +77,8 @@
 							<h:message for="password" styleClass="error" />
 						</p>
 
-						<h:commandButton action="#{registrationController.register}"
-							value="Registrieren">
-							<f:ajax execute="@form" render=":messages"
-								onevent="handleRegistration" />
-						</h:commandButton>
 
-						<h:messages id="messages" globalOnly="true" />
+ 						<h:commandButton value="Register" action="#{registrationController.signup()}" /> 
 
 						<p:dialog header="Erfolgreich registiert"
 							widgetVar="successDialog" modal="true" showEffect="fade"
@@ -60,8 +86,9 @@
 							<p:commandButton value="OK"
 								onclick="PF('successDialog').hide(); window.location.href='index.xhtml';" />
 						</p:dialog>
-					</h:form>
 
+					</h:form>
+					
 					<h:outputScript>
 				        function handleRegistration(data) {
 				            if (data.status === 'success') {
@@ -69,6 +96,7 @@
 				            }
 				        }
 				    </h:outputScript>
+
 
 
 					<label class="hint">Durch Klicken auf Registrieren

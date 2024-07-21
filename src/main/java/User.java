@@ -5,23 +5,54 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 import org.primefaces.expression.impl.ThisExpressionResolver;
+import org.primefaces.model.filter.StringFilterConstraint;
 
 public class User {
     private String username;
     private String passwordHash;
     private String salt;
+    private String surname;
+    private String name;
+    private String phoneNumber;
 
 
 	public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, String surname, String name, String phoneNumber) {
         this.username = username;
         this.salt = generateSalt();
         this.passwordHash = hashPassword(username, password, this.salt);
+        this.surname = surname;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
 ;    }
 
-    public String getUsername() {
+    public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getUsername() {
         return username;
     }
 

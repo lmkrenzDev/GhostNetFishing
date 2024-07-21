@@ -19,15 +19,15 @@ public class GhostNetManagement {
 				(new GregorianCalendar(2022, 6, 23).getTime()), (new GregorianCalendar(2023, 1, 15).getTime()));
 		ghostnets.add(ghostNet1);
 
-		Ghostnet ghostNet2 = new Ghostnet(2, 69.075299, 12.621785, 50, "Bergung bevorstehend",
+		Ghostnet ghostNet2 = new Ghostnet(2, 69.075299, 12.621785, 50, "Gemeldet",
 				(new GregorianCalendar(2012, 11, 23).getTime()), (new GregorianCalendar(2014, 5, 13).getTime()));
 		ghostnets.add(ghostNet2);
 
-		Ghostnet ghostNet3 = new Ghostnet(3, 69.075299, 12.621785, 50, "Geborgen",
+		Ghostnet ghostNet3 = new Ghostnet(3, 69.075299, 12.621785, 50, "Gemeldet",
 				(new GregorianCalendar(2012, 11, 23).getTime()), (new GregorianCalendar(2014, 5, 13).getTime()));
 		ghostnets.add(ghostNet3);
 
-		Ghostnet ghostNet4 = new Ghostnet(4, 69.075299, 12.621785, 50, "Verschollen",
+		Ghostnet ghostNet4 = new Ghostnet(4, 69.075299, 12.621785, 50, "Gemeldet",
 				(new GregorianCalendar(2012, 11, 23).getTime()), (new GregorianCalendar(2014, 5, 13).getTime()));
 		ghostnets.add(ghostNet4);
 	}

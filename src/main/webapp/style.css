@@ -39,6 +39,15 @@ header a {
 	font-size: x-large;
 }
 
+table a{
+	color: rgb(169, 169, 169) !important;
+	text-decoration: none !important;
+}
+
+table a:hover{
+	color: black !important;
+}
+
 header a.buttonStyle {
 	color: white;
 	background-color: var(--secondary-color);
@@ -133,6 +142,7 @@ h1, h2, h3, h4 {
 	border-radius: 10px;
 	box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.3);
 	margin-bottom: 30px;
+	margin-top: 30px;
 }
 
 .signinMenu label, .reportMenu label {
