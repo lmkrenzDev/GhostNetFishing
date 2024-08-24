@@ -1,7 +1,14 @@
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Ghostnet {
 
+	@Id
+	@GeneratedValue
 	private int nr;
 
 	private double longitude;
@@ -14,15 +21,19 @@ public class Ghostnet {
 
 
 
-	public Ghostnet(int nr, double longitude, double latitude, double estimatedSize, String status, Date recordingDate,
+	public Ghostnet(double longitude, double latitude, double estimatedSize, String status, Date recordingDate,
 			Date lastUpate) {
-		this.nr = nr;
+//		this.nr = nr;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.status = status;
 		this.recordingDate = recordingDate;
 		this.lastUpDate = lastUpate;
 		this.estimatedSize = estimatedSize;
+	}
+	
+	public Ghostnet() {
+		
 	}
 
 	public int getNr() {

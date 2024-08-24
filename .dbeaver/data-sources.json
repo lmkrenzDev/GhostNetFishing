@@ -1,0 +1,39 @@
+{
+	"folders": {},
+	"connections": {
+		"derby_server-1911eace60d-542c88fa5d0be4d2": {
+			"provider": "generic",
+			"driver": "derby_server",
+			"name": "localhost",
+			"save-password": true,
+			"navigator-show-only-entities": true,
+			"navigator-hide-folders": true,
+			"navigator-hide-virtual": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "1527",
+				"url": "jdbc:derby://localhost:1527/ghostnetmanagement;create\u003dtrue",
+				"configurationType": "URL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": true,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
+		}
+	}
+}

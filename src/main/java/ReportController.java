@@ -53,11 +53,11 @@ public class ReportController implements Serializable {
 
 	public String saveReport() {
 		try {
-			int nr = ghostNetManagement.getcurrentSize() + 1;
+//			int nr = ghostNetManagement.getcurrentSize() + 1;
 			Date now = new Date();
 			String status = "Gemeldet"; // Standardstatus
 
-			Ghostnet newGhostnet = new Ghostnet(nr, longitude, latitude, estimatedSize, status, now, now);
+			Ghostnet newGhostnet = new Ghostnet(longitude, latitude, estimatedSize, status, now, now);
 			ghostNetManagement.addGhostnet(newGhostnet);
 			
 			return "index.xhtml";
