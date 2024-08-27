@@ -4,10 +4,16 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-import org.primefaces.expression.impl.ThisExpressionResolver;
-import org.primefaces.model.filter.StringFilterConstraint;
+import jakarta.persistence.*;
 
+
+@Entity
 public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
     private String username;
     private String passwordHash;
     private String salt;

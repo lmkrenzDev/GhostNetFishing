@@ -51,7 +51,6 @@
 			<artifactId>jakarta.enterprise.cdi-api</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet-core</artifactId>
@@ -64,24 +63,18 @@
 			<version>11.0.0</version>
 			<classifier>jakarta</classifier>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.4.33.Final</version> 
+			<artifactId>hibernate-core</artifactId>
+			<version>6.2.24.Final</version>
 		</dependency>
-		
-		<dependency>
-      <groupId>org.apache.derby</groupId>
-      <artifactId>derbyclient</artifactId>
-      <version>10.17.1.0</version>
-    </dependency>
 
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>6.2.24.Final</version>
-    </dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.28</version>
+		</dependency>
 
 
 	</dependencies>

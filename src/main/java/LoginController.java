@@ -20,9 +20,11 @@ public class LoginController implements Serializable {
 
 	@Inject
 	private GhostNetManagement ghostNetManagement;
+	
+	
 
 	public String login() {
-		// keine weitere Überprüfung notwenig, da Validierung durch Post Process
+		// keine weitere Überprüfung notwendig, da Validierung durch Post Process
 		loggedInUser = currentUser;
 		return "index?faces-redirect=true";
 	}

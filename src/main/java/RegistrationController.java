@@ -15,15 +15,16 @@ public class RegistrationController implements Serializable {
 	private String name;
 	private String phoneNumber;
 
+	
 	@Inject
-	private GhostNetManagement ghostNetManagement;
+	private UserDAO userDAO;
 
 	public String signup() {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		User user = new User(username, password, surname, name, phoneNumber);
-		ghostNetManagement.addUser(user);
+		userDAO.save(user);
 
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Registrierung erfolgreich."));
 		context.getPartialViewContext().getRenderIds().add("messages");

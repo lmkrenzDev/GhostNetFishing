@@ -26,7 +26,7 @@
 			<h1>Ghost Net Fishing</h1>
 
 			<h3>Die Plattform für die Verwaltung von Geisternetzen</h3>
-			
+
 			<div class="containerTable">
 				<h:form id="form">
 
@@ -35,6 +35,7 @@
 						rowKey="#{ghostnet.nr}"
 						selection="#{dtContextMenuView.selectedGhostNet}"
 						selectionMode="single">
+
 
 						<p:column>
 							<f:facet name="header">ID</f:facet>
@@ -96,19 +97,17 @@
 
 					<p:dialog header="Benutzerdetails" widgetVar="userDialog"
 						modal="true" closable="true" resizable="false" width="400">
-						<h:panelGrid id="userDetail" columns="2" cellpadding="5" styleClass="tablePopup">
+						<h:panelGrid id="userDetail" columns="2" cellpadding="5"
+							styleClass="tablePopup">
 							<h:outputLabel value="E-Mail:" />
 							<h:outputText
 								value="#{dtContextMenuView.selectedGhostNet.savingPerson.username}" />
-
 							<h:outputLabel value="Vorname:" />
 							<h:outputText
 								value="#{dtContextMenuView.selectedGhostNet.savingPerson.surname}" />
-
 							<h:outputLabel value="Nachname:" />
 							<h:outputText
 								value="#{dtContextMenuView.selectedGhostNet.savingPerson.name}" />
-
 							<h:outputLabel value="Telefonnummer:" />
 							<h:outputText
 								value="#{dtContextMenuView.selectedGhostNet.savingPerson.phoneNumber}" />

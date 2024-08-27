@@ -15,8 +15,9 @@ public class ReportController implements Serializable {
 	private double latitude;
 	private double estimatedSize;
 
+
 	@Inject
-	private GhostNetManagement ghostNetManagement;
+	private GhostNetDAO ghostNetDAO;
 
 	// Getter und Setter
 	public int getNr() {
@@ -53,28 +54,23 @@ public class ReportController implements Serializable {
 
 	public String saveReport() {
 		try {
-//			int nr = ghostNetManagement.getcurrentSize() + 1;
-			Date now = new Date();
-			String status = "Gemeldet"; // Standardstatus
 
-			Ghostnet newGhostnet = new Ghostnet(longitude, latitude, estimatedSize, status, now, now);
-			ghostNetManagement.addGhostnet(newGhostnet);
-			
+			int nr = ghostNetDAO.findMaxId() + 1;
+			Date now = new Date();
+			String status = "Gemeldet";
+
+			Ghostnet newGhostnet = new Ghostnet(nr,longitude, latitude, estimatedSize, status, now, now);
+			ghostNetDAO.save(newGhostnet);
+
 			return "index.xhtml";
 
-//            FacesContext.getCurrentInstance().addMessage(null,
-//                new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Ghostnet created successfully"));
 		} catch (Exception e) {
-//            FacesContext.getCurrentInstance().addMessage(null,
-//                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Failed to create Ghostnet"));
-			
 			return "";
 		}
 	}
 
 	public int getNextNumber() {
-		return ghostNetManagement.getcurrentSize() + 1;
-
+		return ghostNetDAO.findMaxId() + 1;
 	}
 
 }
