@@ -1,3 +1,5 @@
+package com.ghostnetfishing.bean;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -93,7 +95,7 @@ public class User {
         }
     }
     
-    static String hashPassword(String name, String pass, String salt) {
+    public static String hashPassword(String name, String pass, String salt) {
         try {
             MessageDigest digester = MessageDigest.getInstance("SHA-512");
             byte[] hashBytes = digester.digest((name + pass + salt)

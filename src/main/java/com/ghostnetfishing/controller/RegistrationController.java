@@ -1,11 +1,18 @@
+package com.ghostnetfishing.controller;
+
 import java.io.Serializable;
+
+import com.ghostnetfishing.bean.User;
+import com.ghostnetfishing.dao.UserDAO;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+/**
+ * Klasse für die Verwaltung der signup.xhtml
+ */
 @Named
 @RequestScoped
 public class RegistrationController implements Serializable {
@@ -16,9 +23,12 @@ public class RegistrationController implements Serializable {
 	private String phoneNumber;
 
 	
-	@Inject
-	private UserDAO userDAO;
+	private UserDAO userDAO = new UserDAO();
 
+	/**
+	 * Speichern eines neuen Users in der Datenbank mithilfe der UserDAO
+	 * @return
+	 */
 	public String signup() {
 
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -29,11 +39,11 @@ public class RegistrationController implements Serializable {
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Registrierung erfolgreich."));
 		context.getPartialViewContext().getRenderIds().add("messages");
 
-		return "index.xhtml";
+		return "index.xhtml?faces-redirect=true";
 
 	}
 
-	// Getter und Setter für username und password
+	// Getter und Setter für Benutzername, Passwort, Telefonnummer, Name und Vorname
 
 	public String getUsername() {
 		return username;

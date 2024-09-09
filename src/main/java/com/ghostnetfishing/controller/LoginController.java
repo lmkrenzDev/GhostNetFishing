@@ -1,3 +1,5 @@
+package com.ghostnetfishing.controller;
+
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
@@ -9,8 +11,16 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 
+import com.ghostnetfishing.bean.User;
+import com.ghostnetfishing.core.GhostNetManagement;
+
+/**
+ * Klasse für die Verwaltung der signin.xhtml
+ * Hierüber kann sich der Benutzer mit Benutzername und Passwort anmelden
+ * SessionScoped damit loggedInUser weiter verwendet werden kann
+ */
+
 @Named
-//SessionScoped damit loggedInUser weiter verwendet werden kann
 @SessionScoped
 public class LoginController implements Serializable {
 	private String username;

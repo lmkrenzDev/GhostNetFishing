@@ -1,7 +1,12 @@
+package com.ghostnetfishing.bean;
+
 import java.util.Date;
 
 import jakarta.persistence.*;
 
+/**
+ * Bean für ein Geisternetz
+ */
 @Entity
 public class Ghostnet {
 
@@ -14,6 +19,7 @@ public class Ghostnet {
 	private String status;
 	private Date recordingDate;
 	private Date lastUpDate;
+	// n:1-Beziehung zu einer User-Bean
 	@ManyToOne
 	private User savingPerson;
 

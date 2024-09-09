@@ -1,3 +1,10 @@
+package com.ghostnetfishing.controller;
+
+import com.ghostnetfishing.*;
+import com.ghostnetfishing.bean.Ghostnet;
+import com.ghostnetfishing.core.GhostNetManagement;
+import com.ghostnetfishing.dao.GhostNetDAO;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,6 +15,9 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+/**
+ * Klasse für die Verwaltung des Kontext-Menüs und des aktuell ausgewählten Geisternetzes in der Tabelle der index.xhtml
+ */
 @Named("dtContextMenuView")
 @ViewScoped
 public class ContextMenuController implements Serializable {
@@ -22,8 +32,7 @@ public class ContextMenuController implements Serializable {
 	@Inject
 	private LoginController loginController;
 	
-	@Inject
-	private GhostNetDAO ghostNetDAO;
+	private GhostNetDAO ghostNetDAO = new GhostNetDAO();
 	
 
 	@PostConstruct
@@ -49,6 +58,8 @@ public class ContextMenuController implements Serializable {
 	}
 	
 	public void setGhostNetStatus(String status) {
+		//das Setzen des Status ist abhängig von dem aktuellen Status
+		// ist eine Statuswechsel nicht möglich, erhält der Nutzer eine Fehlermeldung in Form eines Popup-Dialogs
 		if(selectedGhostNet.getStatus().equals("Gemeldet") && status.equals("Bergung bevorstehend")) {
 			selectedGhostNet.setStatus(status);		
 			selectedGhostNet.setSavingPerson(loginController.getLoggedInUser());

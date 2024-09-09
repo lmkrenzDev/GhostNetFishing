@@ -1,10 +1,17 @@
+package com.ghostnetfishing.controller;
+
+import com.ghostnetfishing.bean.Ghostnet;
+import com.ghostnetfishing.dao.*;
+
 import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+/**
+ * Klasse für die Verwaltung der Report.xhtml in der ein neues Geisternetz angelegt werden kann
+ */
 @Named
 @ViewScoped
 public class ReportController implements Serializable {
@@ -16,8 +23,7 @@ public class ReportController implements Serializable {
 	private double estimatedSize;
 
 
-	@Inject
-	private GhostNetDAO ghostNetDAO;
+	private GhostNetDAO ghostNetDAO = new GhostNetDAO();
 
 	// Getter und Setter
 	public int getNr() {
@@ -52,6 +58,10 @@ public class ReportController implements Serializable {
 		this.estimatedSize = estimatedSize;
 	}
 
+	/**
+	 * Methode zum Speichern eines neuen Geisternetzes mithilfe der GhostnetDAO
+	 * @return
+	 */
 	public String saveReport() {
 		try {
 
@@ -62,7 +72,8 @@ public class ReportController implements Serializable {
 			Ghostnet newGhostnet = new Ghostnet(nr,longitude, latitude, estimatedSize, status, now, now);
 			ghostNetDAO.save(newGhostnet);
 
-			return "index.xhtml";
+			//Weiterleitung zur Startseite
+			return "index.xhtml?faces-redirect=true";
 
 		} catch (Exception e) {
 			return "";

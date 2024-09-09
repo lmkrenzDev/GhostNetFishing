@@ -1,10 +1,13 @@
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
+package com.ghostnetfishing.dao;
+
 import jakarta.persistence.*;
 import java.util.List;
 
-@Named
-@ApplicationScoped
+import com.ghostnetfishing.bean.User;
+
+/**
+ * Data Access Object für einen User, welches registriert wurde
+ */
 public class UserDAO {
 
 	private EntityManager entityManager;
@@ -19,11 +22,19 @@ public class UserDAO {
 		}
 	}
 
+	/**
+	 * Abfrage aller in der Datenbank gespeicherten User
+	 * @return
+	 */
 	public List<User> findAll() {
 		TypedQuery<User> query = entityManager.createQuery("select u from User u", User.class);
 		return query.getResultList();
 	}
 
+	/**
+	 * Speichern eines neuen Users bei der Registrierung
+	 * @param user
+	 */
 	public void save(User user) {
 
 		EntityTransaction transaction = null;

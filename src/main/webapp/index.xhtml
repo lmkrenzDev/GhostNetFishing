@@ -10,16 +10,26 @@
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 	<title>Ghost Net Fishing</title>
 	<link rel="icon" type="image/png" href="favicon-16x16.png" />
+	<link rel="stylesheet"
+		href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+		crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+		crossorigin=""></script>
+
 </h:head>
 
 <h:body class="orangeBackground">
 
+	<!-- Wrapper, um den Inhalt der Webseite zu verpacken -->
 	<div class="wrapper">
 
 		<ui:insert name="header">
 			<ui:include src="header.xhtml" />
 		</ui:insert>
 
+		<!-- Container für den Inhalt zwischen Header und Footer -->
 		<div class="content">
 			<img class="headerImage" src="headerImage.jpg" alt="Image" />
 
@@ -30,13 +40,14 @@
 			<div class="containerTable">
 				<h:form id="form">
 
+					<!-- Tabelle aus der Primefaces-Bibkothek, um alle Geisternetze tabellarisch aufzulisten -->
 					<p:dataTable id="ghostnetsDataTable"
 						value="#{dtContextMenuView.ghostnets}" var="ghostnet"
 						rowKey="#{ghostnet.nr}"
 						selection="#{dtContextMenuView.selectedGhostNet}"
 						selectionMode="single">
 
-
+						<!-- jede einzelne Spalte der Tabelle wird einmal aufgelistet, die Zeilen werden automatisch durch JSF generiert anhand der Liste in dem value-Attribute -->
 						<p:column>
 							<f:facet name="header">ID</f:facet>
 							<h:outputText value="#{ghostnet.nr}" />
@@ -68,7 +79,7 @@
 						<p:column rendered="#{loginController.loggedInUser != null}">
 							<f:facet name="header">Bergende Person</f:facet>
 							<p:commandLink update=":form:userDetail"
-								oncomplete="PF('userDialog').show()"
+								oncomplete="PF('userDialog').show();"
 								value="#{ghostnet.savingPerson.surname} #{ghostnet.savingPerson.name}">
 								<f:setPropertyActionListener value="#{ghostnet}"
 									target="#{dtContextMenuView.selectedGhostNet}" />
@@ -76,11 +87,14 @@
 						</p:column>
 						<p:column>
 							<f:facet name="header"></f:facet>
-							<i class="fa-solid fa-earth-americas"></i>
+							<p:commandLink oncomplete="PF('dlg').show();">
+								<i class="fa-solid fa-earth-americas"></i>
+							</p:commandLink>
 						</p:column>
 
 					</p:dataTable>
 
+					<!-- Kontextmenü, womit der Status eines Geisternetzes verändert werden kann -->
 					<p:contextMenu for="ghostnetsDataTable" widgetVar="contextMenu"
 						rendered="#{loginController.loggedInUser != null}"
 						id="contextMenu">
@@ -95,6 +109,7 @@
 							update="ghostnetsDataTable" />
 					</p:contextMenu>
 
+					<!-- Pop-Dialog für das Anzeigen von Benutzerdetails wie z.B. die Telefonnummer -->
 					<p:dialog header="Benutzerdetails" widgetVar="userDialog"
 						modal="true" closable="true" resizable="false" width="400">
 						<h:panelGrid id="userDetail" columns="2" cellpadding="5"
@@ -115,6 +130,14 @@
 						</h:panelGrid>
 
 					</p:dialog>
+
+					<!-- Popup-Dialog für das Anzeigen einer Karte -->
+					<p:dialog header="Karte" widgetVar="dlg" modal="true"
+						resizable="false" width="600px" height="450px">
+						<h:panelGroup id="mapDialog">
+							<div id="map" style="height: 400px; width: 100%;"></div>
+						</h:panelGroup>
+					</p:dialog>
 				</h:form>
 
 
@@ -125,19 +148,40 @@
 						bitte einen anderen Status aus.</p>
 				</p:dialog>
 
-				<p:dialog header="Karte anzeigen" widgetVar="mapDialog" modal="true"
-					closable="true" resizable="false" width="650">
-					<div id="map"></div>
-				</p:dialog>
 
 			</div>
 
 		</div>
 
+		<!-- Einfügen des Footers, welcher in einer anderen Komponente für die Wiederverwendung erstellt wird -->
 		<ui:insert name="footer">
 			<ui:include src="footer.xhtml" />
 		</ui:insert>
+
 	</div>
+
+	<script>
+		var lat = 55.56;
+		var lng = 3.499;
+
+		//Erzeugen einer Karte mithilfe der Leaflet-Bibliothek
+		var map = L.map('map').setView([ lat, lng ], 5);
+
+		L
+				.tileLayer(
+						'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+						{
+							attribution : '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+						}).addTo(map);
+
+		//Hinzufügen eines Kreises 
+		var circle = L.circle([ lat, lng ], {
+			color : 'red',
+			fillColor : '#f03',
+			fillOpacity : 0.5,
+			radius : 1000
+		}).addTo(map);
+	</script>
 
 </h:body>
 
