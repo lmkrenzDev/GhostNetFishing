@@ -1,12 +1,10 @@
 package com.ghostnetfishing.controller;
 
-import com.ghostnetfishing.*;
 import com.ghostnetfishing.bean.Ghostnet;
 import com.ghostnetfishing.core.GhostNetManagement;
 import com.ghostnetfishing.dao.GhostNetDAO;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.primefaces.PrimeFaces;
