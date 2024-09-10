@@ -72,9 +72,9 @@
 
 					<!-- Tabelle aus der Primefaces-Bibkothek, um alle Geisternetze tabellarisch aufzulisten -->
 					<p:dataTable id="ghostnetsDataTable"
-						value="#{dtContextMenuView.ghostnets}" var="ghostnet"
+						value="#{ghostnetManagementController.ghostnets}" var="ghostnet"
 						rowKey="#{ghostnet.nr}"
-						selection="#{dtContextMenuView.selectedGhostNet}"
+						selection="#{ghostnetManagementController.selectedGhostNet}"
 						selectionMode="single">
 
 						<!-- jede einzelne Spalte der Tabelle wird einmal aufgelistet, die Zeilen werden automatisch durch JSF generiert anhand der Liste in dem value-Attribute -->
@@ -106,7 +106,7 @@
 								oncomplete="PF('userDialog').show();"
 								value="#{ghostnet.savingPerson.surname} #{ghostnet.savingPerson.name}">
 								<f:setPropertyActionListener value="#{ghostnet}"
-									target="#{dtContextMenuView.selectedGhostNet}" />
+									target="#{ghostnetManagementController.selectedGhostNet}" />
 							</p:commandLink>
 						</p:column>
 					</p:dataTable>
@@ -116,13 +116,13 @@
 						rendered="#{loginController.loggedInUser != null}"
 						id="contextMenu">
 						<p:menuitem value="Bergen"
-							actionListener="#{dtContextMenuView.setGhostNetStatus('Bergung bevorstehend')}"
+							actionListener="#{ghostnetManagementController.setGhostNetStatus('Bergung bevorstehend')}"
 							update="ghostnetsDataTable" />
 						<p:menuitem value="Geborgen melden"
-							actionListener="#{dtContextMenuView.setGhostNetStatus('Geborgen')}"
+							actionListener="#{ghostnetManagementController.setGhostNetStatus('Geborgen')}"
 							update="ghostnetsDataTable" />
 						<p:menuitem value="Verschollen melden"
-							actionListener="#{dtContextMenuView.setGhostNetStatus('Verschollen')}"
+							actionListener="#{ghostnetManagementController.setGhostNetStatus('Verschollen')}"
 							update="ghostnetsDataTable" />
 					</p:contextMenu>
 
@@ -132,7 +132,7 @@
 						rendered="#{loginController.loggedInUser == null}"
 						id="contextMenuNotLoggedIn">
 						<p:menuitem value="Verschollen melden"
-							actionListener="#{dtContextMenuView.setGhostNetStatus('Verschollen')}"
+							actionListener="#{ghostnetManagementController.setGhostNetStatus('Verschollen')}"
 							update="ghostnetsDataTable" />
 					</p:contextMenu>
 
@@ -143,16 +143,16 @@
 							styleClass="tablePopup">
 							<h:outputLabel value="E-Mail:" />
 							<h:outputText
-								value="#{dtContextMenuView.selectedGhostNet.savingPerson.username}" />
+								value="#{ghostnetManagementController.selectedGhostNet.savingPerson.username}" />
 							<h:outputLabel value="Vorname:" />
 							<h:outputText
-								value="#{dtContextMenuView.selectedGhostNet.savingPerson.surname}" />
+								value="#{ghostnetManagementController.selectedGhostNet.savingPerson.surname}" />
 							<h:outputLabel value="Nachname:" />
 							<h:outputText
-								value="#{dtContextMenuView.selectedGhostNet.savingPerson.name}" />
+								value="#{ghostnetManagementController.selectedGhostNet.savingPerson.name}" />
 							<h:outputLabel value="Telefonnummer:" />
 							<h:outputText
-								value="#{dtContextMenuView.selectedGhostNet.savingPerson.phoneNumber}" />
+								value="#{ghostnetManagementController.selectedGhostNet.savingPerson.phoneNumber}" />
 
 						</h:panelGrid>
 
@@ -201,7 +201,7 @@
 		function loadGhostNetMarkers() {
 			
 			var ghostnets = [
-                <ui:repeat value="#{dtContextMenuView.ghostnets}" var="ghostnet">
+                <ui:repeat value="#{ghostnetManagementController.ghostnets}" var="ghostnet">
                 	<ui:fragment rendered="#{ghostnet.status == 'Gemeldet'}">
                 		{lat: #{ghostnet.latitude}, lng: #{ghostnet.longitude}},
             		</ui:fragment>

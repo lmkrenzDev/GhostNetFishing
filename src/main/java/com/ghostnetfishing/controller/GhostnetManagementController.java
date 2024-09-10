@@ -1,7 +1,6 @@
 package com.ghostnetfishing.controller;
 
 import com.ghostnetfishing.bean.Ghostnet;
-import com.ghostnetfishing.core.GhostNetManagement;
 import com.ghostnetfishing.dao.GhostNetDAO;
 
 import java.io.Serializable;
@@ -17,17 +16,14 @@ import jakarta.inject.Named;
 /**
  * Klasse für die Verwaltung des Kontext-Menüs und des aktuell ausgewählten Geisternetzes in der Tabelle der index.xhtml
  */
-@Named("dtContextMenuView")
+@Named("ghostnetManagementController")
 @ViewScoped
-public class ContextMenuController implements Serializable {
+public class GhostnetManagementController implements Serializable {
 
 	private List<Ghostnet> ghostnets;
 
 	private Ghostnet selectedGhostNet;
-	
-	@Inject
-	private GhostNetManagement ghostNetManagement;
-	
+		
 	@Inject
 	private LoginController loginController;
 	
@@ -36,7 +32,7 @@ public class ContextMenuController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		ghostnets = ghostNetManagement.getGhostnets();
+		ghostnets = ghostNetDAO.findAll();
 	}
 
 	// Getter/ Setter

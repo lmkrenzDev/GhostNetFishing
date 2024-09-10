@@ -7,12 +7,12 @@ import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.validator.ValidatorException;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 
 import com.ghostnetfishing.bean.User;
-import com.ghostnetfishing.core.GhostNetManagement;
+import com.ghostnetfishing.dao.UserDAO;
 
 /**
  * Klasse für die Verwaltung der signin.xhtml
@@ -28,9 +28,7 @@ public class LoginController implements Serializable {
 	private User currentUser;
 	private User loggedInUser;
 
-	@Inject
-	private GhostNetManagement ghostNetManagement;
-	
+	private UserDAO userDAO = new UserDAO();
 	
 
 	public String login() {
@@ -46,7 +44,7 @@ public class LoginController implements Serializable {
 
 	public void validateUsername(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		String username = (String) value;
-		currentUser = ghostNetManagement.validateUserName(username);
+		currentUser = findUserByName(username);
 		if (currentUser == null) {
 			throw new ValidatorException(new FacesMessage("User wurde nicht gefunden"));
 		}
@@ -55,7 +53,7 @@ public class LoginController implements Serializable {
 
 	public void validateLogin(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		String password = (String) value;
-		boolean passwordValid = ghostNetManagement.validateUsernameAndPassword(currentUser, username, password);
+		boolean passwordValid = validateUsernameAndPassword(currentUser, username, password);
 		if (!passwordValid) {
 			throw new ValidatorException(new FacesMessage("Passwort falsch!"));
 		}
@@ -89,5 +87,46 @@ public class LoginController implements Serializable {
 
 	public void setLoggedInUser(User loggedInUser) {
 		this.loggedInUser = loggedInUser;
+	}
+	
+
+	/**
+	 * Methode für die Validierung des Benutzernamens, prüft ob der Benutzername in
+	 * der Datenbank vorhanden ist bzw. ob dieser bereits registriert wurde
+	 * 
+	 * @param username: Benutzername, der geprüft werden soll
+	 * @return Benutzer, wenn dieser in der Datenbank gefunden wurde, ansonsten null
+	 */
+	public User findUserByName(String username) {
+		List<User> users = userDAO.findAll();
+		for (User user : users) {
+			if (user.getUsername().equals(username)) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Überprüft, ob das eingegenene Passwort zu dem vorher gesuchten Benutzer
+	 * passt. Es werden jeweils die Hashes der Passwörter verglichen
+	 * 
+	 * @param currentUser: vorher gesuchter Benutzer anhand des Benutezrnamens
+	 * @param username:    Benutzername des gesuchten Benutzers
+	 * @param password:    Passwort, welches überprüft werden soll
+	 * @return true, wenn Benutzername und Passwort zusammen passen
+	 */
+	public boolean validateUsernameAndPassword(User currentUser, String username, String password) {
+
+		if (currentUser == null) {
+			return false;
+		}
+
+		if (currentUser.getPasswordHash().equals(User.hashPassword(username, password, currentUser.getSalt()))) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 }
