@@ -20,6 +20,17 @@
 
 </h:head>
 
+<style>
+.ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell
+	{
+	text-align: center;
+}
+
+.customPanelGrid .ui-panelgrid-content {
+	align-items: center;
+}
+</style>
+
 <h:body class="orangeBackground">
 
 	<!-- Wrapper, um den Inhalt der Webseite zu verpacken -->
@@ -37,8 +48,31 @@
 
 			<h3>Die Plattform für die Verwaltung von Geisternetzen</h3>
 
+
 			<div class="containerTable">
 				<h:form id="form">
+
+					<div class="containerDataTableMenu">
+						<p:panelGrid columns="4" layout="grid"
+							styleClass="customPanelGrid" contentStyleClass="ui-fluid"
+							style="margin-bottom:20px;">
+							<p:commandButton value="Neue Meldung" icon="pi pi-plus"
+								styleClass="btn btn-primary" action="report.xhtml"
+								style="background-color: var(--primary-color); border-color: var(--primary-color); color: white;" />
+
+							<h:outputLabel for="statusFilter" value="Status:" />
+							<p:inputText id="statusFilter" placeholder="Filter nach Status"
+								p:keyup="@this" update="ghostnetsDataTable" />
+
+							<p:commandButton icon="fa-solid fa-earth-americas"
+								title="Karte anzeigen"
+								onclick="PF('dlg').show(); loadGhostNetMarkers();"
+								styleClass="btn btn-secondary"
+								style="background-color: var(--primary-color); border-color: var(--primary-color); color: white;" />
+
+						</p:panelGrid>
+					</div>
+
 
 					<!-- Tabelle aus der Primefaces-Bibkothek, um alle Geisternetze tabellarisch aufzulisten -->
 					<p:dataTable id="ghostnetsDataTable"
@@ -48,36 +82,29 @@
 						selectionMode="single">
 
 						<!-- jede einzelne Spalte der Tabelle wird einmal aufgelistet, die Zeilen werden automatisch durch JSF generiert anhand der Liste in dem value-Attribute -->
-						<p:column>
-							<f:facet name="header">ID</f:facet>
+						<p:column headerText="ID">
 							<h:outputText value="#{ghostnet.nr}" />
 						</p:column>
-						<p:column>
-							<f:facet name="header">Längengrad</f:facet>
+						<p:column headerText="Längengrad">
 							<h:outputText value="#{ghostnet.longitude}" />
 						</p:column>
-						<p:column>
-							<f:facet name="header">Breitengrad</f:facet>
+						<p:column headerText="Breitengrad">
 							<h:outputText value="#{ghostnet.latitude}" />
 						</p:column>
 
-						<p:column>
-							<f:facet name="header">geschätzte Größe [m²]</f:facet>
+						<p:column headerText="geschätzte Größe [m²]">
 							<h:outputText value="#{ghostnet.estimatedSize}" />
 						</p:column>
-						<p:column styleClass="statusColumn">
-							<f:facet name="header">Status</f:facet>
+						<p:column styleClass="statusColumn" headerText="Status">
 							<h:outputText value="#{ghostnet.status}"
 								styleClass="#{ghostnet.status} status" />
 						</p:column>
-						<p:column>
-							<f:facet name="header">Zeitpunkt Erfassung</f:facet>
+						<p:column headerText="Zeitpunkt Erfassung">
 							<h:outputText value="#{ghostnet.recordingDate}">
 								<f:convertDateTime type="date" dateStyle="medium" />
 							</h:outputText>
 						</p:column>
-						<p:column rendered="#{loginController.loggedInUser != null}">
-							<f:facet name="header">Bergende Person</f:facet>
+						<p:column rendered="#{loginController.loggedInUser != null}" headerText="Bergende Person">
 							<p:commandLink update=":form:userDetail"
 								oncomplete="PF('userDialog').show();"
 								value="#{ghostnet.savingPerson.surname} #{ghostnet.savingPerson.name}">
@@ -85,16 +112,9 @@
 									target="#{dtContextMenuView.selectedGhostNet}" />
 							</p:commandLink>
 						</p:column>
-						<p:column>
-							<f:facet name="header"></f:facet>
-							<p:commandLink oncomplete="PF('dlg').show();">
-								<i class="fa-solid fa-earth-americas"></i>
-							</p:commandLink>
-						</p:column>
-
 					</p:dataTable>
 
-					<!-- Kontextmenü, womit der Status eines Geisternetzes verändert werden kann -->
+					<!-- Kontextmenü, womit der Status eines Geisternetzes verändert werden kann, wenn der Nutzer eingeloggt ist -->
 					<p:contextMenu for="ghostnetsDataTable" widgetVar="contextMenu"
 						rendered="#{loginController.loggedInUser != null}"
 						id="contextMenu">
@@ -104,6 +124,16 @@
 						<p:menuitem value="Geborgen melden"
 							actionListener="#{dtContextMenuView.setGhostNetStatus('Geborgen')}"
 							update="ghostnetsDataTable" />
+						<p:menuitem value="Verschollen melden"
+							actionListener="#{dtContextMenuView.setGhostNetStatus('Verschollen')}"
+							update="ghostnetsDataTable" />
+					</p:contextMenu>
+
+					<!-- Kontextmenü, womit der Status eines Geisternetzes verändert werden kann, wenn der Nutzer nicht eingeloggt ist -->
+					<p:contextMenu for="ghostnetsDataTable"
+						widgetVar="contextMenuNotLoggedIn"
+						rendered="#{loginController.loggedInUser == null}"
+						id="contextMenuNotLoggedIn">
 						<p:menuitem value="Verschollen melden"
 							actionListener="#{dtContextMenuView.setGhostNetStatus('Verschollen')}"
 							update="ghostnetsDataTable" />
@@ -133,9 +163,9 @@
 
 					<!-- Popup-Dialog für das Anzeigen einer Karte -->
 					<p:dialog header="Karte" widgetVar="dlg" modal="true"
-						resizable="false" width="600px" height="450px">
+						resizable="false" width="800px" height="500px">
 						<h:panelGroup id="mapDialog">
-							<div id="map" style="height: 400px; width: 100%;"></div>
+							<div id="map" style="height: 450px; width: 100%;"></div>
 						</h:panelGroup>
 					</p:dialog>
 				</h:form>
@@ -161,11 +191,7 @@
 	</div>
 
 	<script>
-		var lat = 55.56;
-		var lng = 3.499;
-
-		//Erzeugen einer Karte mithilfe der Leaflet-Bibliothek
-		var map = L.map('map').setView([ lat, lng ], 5);
+		var map = L.map('map').setView([ 0, 0 ], 1);
 
 		L
 				.tileLayer(
@@ -174,13 +200,27 @@
 							attribution : '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 						}).addTo(map);
 
-		//Hinzufügen eines Kreises 
-		var circle = L.circle([ lat, lng ], {
-			color : 'red',
-			fillColor : '#f03',
-			fillOpacity : 0.5,
-			radius : 1000
-		}).addTo(map);
+		// Funktion zum Hinzufügen der Geisternetz-Markierungen
+		function loadGhostNetMarkers() {
+			
+			var ghostnets = [
+                <ui:repeat value="#{dtContextMenuView.ghostnets}" var="ghostnet">
+                	<ui:fragment rendered="#{ghostnet.status == 'Gemeldet'}">
+                		{lat: #{ghostnet.latitude}, lng: #{ghostnet.longitude}},
+            		</ui:fragment>
+                </ui:repeat>
+            ];
+			
+			ghostnets.forEach(function(ghostnet) {
+				// Füge einen Kreis für jedes Geisternetz hinzu
+				L.circle([ ghostnet.lat, ghostnet.lng ], {
+					color : 'red',
+					fillColor : '#f03',
+					fillOpacity : 0.5
+				}).addTo(map);
+				
+			});
+		}
 	</script>
 
 </h:body>

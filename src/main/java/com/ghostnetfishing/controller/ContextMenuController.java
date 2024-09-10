@@ -6,6 +6,7 @@ import com.ghostnetfishing.core.GhostNetManagement;
 import com.ghostnetfishing.dao.GhostNetDAO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.primefaces.PrimeFaces;

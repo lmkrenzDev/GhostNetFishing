@@ -225,14 +225,14 @@ table tbody tr:nth-child(even) {
 	background-color: var(--grey);
 }
 
-table:not(.tablePopup) tbody td:nth-last-of-type(-n+2) {
-	color: var(--darkgrey);
-}
+/* table:not(.tablePopup) tbody td:nth-last-of-type(-n+1) { */
+/* 	color: var(--darkgrey); */
+/* } */
 
-table:not(.tablePopup) tbody td:nth-last-of-type(-n+2):hover {
-	color: black;
-	cursor: pointer;
-}
+/* table:not(.tablePopup) tbody td:nth-last-of-type(-n+1):hover { */
+/* 	color: black; */
+/* 	cursor: pointer; */
+/* } */
 
 .ui-datatable table {
 	table-layout: auto !important;
