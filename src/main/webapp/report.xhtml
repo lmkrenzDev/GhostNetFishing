@@ -38,11 +38,11 @@
 						<h:outputText id="nr" value="#{reportController.nextNumber}" />
 						<h:outputLabel value="Längengrad:" for="longitude" />
 						<div class="flexboxColumn">
-							<p:inputNumber id="longitude" minValue="0" required="true"
+							<p:inputNumber id="longitude" minValue="-90" required="true" maxValue="90"
 								value="#{reportController.longitude}" modifyValueOnWheel="false"
 								decimalSeparator="," decimalPlaces="6"
 								requiredMessage="Breitengrad ist erforderlich"
-								validatorMessage="Der Breitengrad muss größer als 0 sein.">
+								validatorMessage="Der Breitengrad muss größer als -90 und kleiner als 90 sein.">
 								<f:validateDoubleRange minimum="0.1" />
 							</p:inputNumber>
 							<h:message for="longitude" styleClass="error" />
@@ -50,11 +50,11 @@
 
 						<h:outputLabel value="Breitengrad:" for="latitude" />
 						<div class="flexboxColumn">
-							<p:inputNumber id="latitude" minValue="0" required="true"
+							<p:inputNumber id="latitude" minValue="-180" required="true" maxValue="180"
 								value="#{reportController.latitude}" modifyValueOnWheel="false"
 								decimalSeparator="," decimalPlaces="6"
 								requiredMessage="Längengrad ist erforderlich"
-								validatorMessage="Der Längengrad muss größer als 0 sein.">
+								validatorMessage="Der Längengrad muss größer als -180 und kleiner als 180 sein.">
 								<f:validateDoubleRange minimum="0.1" />
 							</p:inputNumber>
 							<h:message for="latitude" styleClass="error" />
