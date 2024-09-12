@@ -14,7 +14,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 /**
- * Klasse für die Verwaltung des Kontext-Menüs und des aktuell ausgewählten Geisternetzes in der Tabelle der index.xhtml
+ * Klasse für die Verwaltung der index.xhtml
  */
 @Named("ghostnetManagementController")
 @ViewScoped

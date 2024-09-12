@@ -69,7 +69,7 @@ public class ReportController implements Serializable {
 			Date now = new Date();
 			String status = "Gemeldet";
 
-			Ghostnet newGhostnet = new Ghostnet(nr,longitude, latitude, estimatedSize, status, now, now);
+			Ghostnet newGhostnet = new Ghostnet(nr,longitude, latitude, estimatedSize, status, now);
 			ghostNetDAO.save(newGhostnet);
 
 			//Weiterleitung zur Startseite

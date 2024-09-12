@@ -84,6 +84,10 @@ public class User {
 		this.salt = salt;
 	}
     
+	/**
+	 * Generieren eines zufälligen Salts zum Verschlüsseln des Passwortes
+	 * @return
+	 */
     public static String generateSalt() {
         try {
             SecureRandom sr = SecureRandom.getInstanceStrong();
@@ -95,6 +99,13 @@ public class User {
         }
     }
     
+    /**
+     * Verschlüsseln des Passwortes mithilfe des Salts
+     * @param name
+     * @param pass
+     * @param salt
+     * @return
+     */
     public static String hashPassword(String name, String pass, String salt) {
         try {
             MessageDigest digester = MessageDigest.getInstance("SHA-512");

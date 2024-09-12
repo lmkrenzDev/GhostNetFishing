@@ -18,21 +18,18 @@ public class Ghostnet {
 	private double estimatedSize;
 	private String status;
 	private Date recordingDate;
-	private Date lastUpDate;
 	// n:1-Beziehung zu einer User-Bean
 	@ManyToOne
 	private User savingPerson;
 
 
 
-	public Ghostnet(int nr,double longitude, double latitude, double estimatedSize, String status, Date recordingDate,
-			Date lastUpate) {
+	public Ghostnet(int nr,double longitude, double latitude, double estimatedSize, String status, Date recordingDate) {
 		this.nr = nr;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.status = status;
 		this.recordingDate = recordingDate;
-		this.lastUpDate = lastUpate;
 		this.estimatedSize = estimatedSize;
 	}
 	
@@ -86,14 +83,6 @@ public class Ghostnet {
 
 	public void setRecordingDate(Date recordingDate) {
 		this.recordingDate = recordingDate;
-	}
-
-	public Date getLastUpDate() {
-		return lastUpDate;
-	}
-
-	public void setLastUpDate(Date lastUpDate) {
-		this.lastUpDate = lastUpDate;
 	}
 	
 	public User getSavingPerson() {

@@ -49,6 +49,7 @@ public class UserDAO {
 
 		} catch (Exception e) {
 			if (transaction != null && transaction.isActive()) {
+				//Rückgängigmachen der Veränderung bei fehlerhafter Persistierung
 				transaction.rollback();
 			}
 			e.printStackTrace();

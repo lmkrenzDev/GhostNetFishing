@@ -36,9 +36,6 @@ public class RegistrationController implements Serializable {
 		User user = new User(username, password, surname, name, phoneNumber);
 		userDAO.save(user);
 
-		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Registrierung erfolgreich."));
-		context.getPartialViewContext().getRenderIds().add("messages");
-
 		return "index.xhtml?faces-redirect=true";
 
 	}
